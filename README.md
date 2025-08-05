@@ -1,6 +1,4 @@
-============================================================
-ChatDB – Natural Language to SQL/NoSQL Query Interface
-============================================================
+**ChatDB – Natural Language to SQL/NoSQL Query Interface**
 
 1. Overview
 -----------
@@ -98,3 +96,4 @@ MongoDB:
 - Cloud deployment for scalability and remote access.
 - Data visualization for query results.
 - Enhanced NLP model for better query understanding.
+
