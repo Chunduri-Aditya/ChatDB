@@ -1,48 +1,100 @@
-************ README ****************************************
+============================================================
+ChatDB – Natural Language to SQL/NoSQL Query Interface
+============================================================
 
-Launching the App:
+1. Overview
+-----------
+ChatDB is an innovative tool that bridges the gap between natural language processing (NLP) and database systems. 
+It allows users to interact with SQL and NoSQL databases using plain English, without needing deep knowledge of query syntax.
 
-1. Please place all csv files to be loaded in the root directory of the project
+Key Features:
+- Upload CSV datasets and store them in either MySQL (SQL) or MongoDB (NoSQL).
+- Generate sample queries dynamically based on dataset metadata.
+- Translate natural language queries into SQL or NoSQL commands.
+- Execute translated queries and display results directly in the browser.
+- User-friendly web interface built with HTML, Bootstrap, and JavaScript.
 
-2. To launch the app > Open Command Prompt and change directory to the root of the project and run 
+Tech Stack:
+- Backend: Python (Flask), SQLAlchemy, PyMongo, regex
+- Databases: MySQL (SQL), MongoDB (NoSQL)
+- Frontend: HTML, CSS (Bootstrap 5.3), JavaScript
+- Data Handling: pandas
 
-	python app.py
+2. Project Structure
+--------------------
+app.py                -> Main Flask backend application
+utils.py              -> Utility functions for dataset handling, query generation, and translation
+data/                 -> Sample datasets (CSV files: sales.csv, products.csv, customers.csv)
+sql/                  -> SQL scripts (DDL/DML)
+templates/index.html  -> HTML front-end interface
+docs/                 -> Project reports (PDF, DOCX)
+requirements.txt      -> Python dependencies
 
-3. The app would start running @ "http://127.0.0.1:5000/" . Please enter the url in your browser to open the app.
+3. Installation & Setup
+------------------------
+Prerequisites:
+- Python 3.x installed
+- MySQL server running (for SQL mode)
+- MongoDB server running (for NoSQL mode)
 
+Steps:
+1. Clone the repository:
+   git clone https://github.com/Chunduri-Aditya/ChatDB.git
+   cd ChatDB
 
-App Structure: 
+2. (Optional) Create a virtual environment:
+   python -m venv venv
+   source venv/bin/activate   (Mac/Linux)
+   venv\Scripts\activate      (Windows)
 
-app.py -> Main flask backend application to be run
+3. Install dependencies:
+   pip install -r requirements.txt
 
-utils.py -> utility code with all the helper functions
+4. Place your CSV files in the "data" directory or the project root.
 
-template / index.html -> template for the html front end
+5. Run the app:
+   python app.py
 
+6. Open your browser and go to:
+   http://127.0.0.1:5000/
 
-App Usage instructions: 
+4. Usage Instructions
+---------------------
+1) Dataset Loading & DB Type Selection:
+   - Select "SQL" or "NoSQL" using the radio buttons.
+   - Enter dataset filenames (comma-separated), e.g.:
+     sales.csv,products.csv,customers.csv
+   - Click "Load Dataset".
+   - The datasets will be pushed to the selected database and a sample preview will be shown.
 
-1) Dataset loading & DB type selections 
+2) Sample Query Generation:
+   - In the "Enter Natural Language query" box, type:
+       Give me sample query with group by
+     OR
+       Give me sample queries
+   - A random sample query will be generated using dataset metadata.
 
-	a) Select DB type using the radio buttons between SQL / No SQL
-        b) Enter input dataset paths separated by comma. Ex: sales.csv,products.csv,customers.csv 
+3) Natural Language to SQL/NoSQL Translation:
+   - Type your query in plain English, e.g.:
+       Show me average quantity by sale date where sale date is after 2021-01-01
+   - The system will:
+       a) Parse your query using regex.
+       b) Translate it into SQL or MongoDB syntax.
+       c) Execute the query and display results in the browser.
 
-and hit load dataset
+5. Example Queries
+------------------
+SQL:
+  "Show me total sales by region"
+  → SELECT region, SUM(sales) AS total_sales FROM sales GROUP BY region;
 
-Dataset would be pushed to the DB of choice and sample data would be displayed
+MongoDB:
+  "Show me average quantity for each product"
+  → db.sales.aggregate([{ $group: { _id: "$product", avg_quantity: { $avg: "$quantity" }}}]);
 
-2) Sample query generation
-
-Under the text box labelled 'Enter Natural Language query' type the following
-
- a) Give me sample query with group by 
-				or
- b) Give me sample queries
-
-3) Natural language to SQL / No SQL translation
-
-Just type the natural language in the text box. The query would be translated and executed and the results displayed
-
-
-
-
+6. Future Enhancements
+----------------------
+- Support for nested and advanced queries (subqueries, joins in MongoDB).
+- Cloud deployment for scalability and remote access.
+- Data visualization for query results.
+- Enhanced NLP model for better query understanding.
